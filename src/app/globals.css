@@ -1,0 +1,874 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fff9ef;
+  --foreground: #31261f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgba(255, 184, 108, 0.36), transparent 34%),
+    radial-gradient(circle at 82% 14%, rgba(95, 202, 255, 0.28), transparent 28%),
+    linear-gradient(180deg, #fff8ea 0%, #fff2d8 100%);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--foreground);
+  font-family:
+    "Trebuchet MS",
+    "Avenir Next Rounded",
+    "Comic Sans MS",
+    sans-serif;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.95), transparent 28%),
+    radial-gradient(circle at 84% 24%, rgba(255, 219, 153, 0.5), transparent 22%),
+    linear-gradient(180deg, #fff9ef 0%, #ffeccd 100%);
+}
+
+button {
+  cursor: pointer;
+}
+
+.panel-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 250, 240, 0.9)),
+    linear-gradient(135deg, rgba(255, 214, 102, 0.12), rgba(95, 202, 255, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 24px 60px rgba(117, 74, 32, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+}
+
+.floating-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(6px);
+  animation: floatOrb 7s ease-in-out infinite;
+}
+
+.coach-note {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 237, 0.94)),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 214, 102, 0.08),
+      rgba(255, 214, 102, 0.08) 10px,
+      rgba(255, 255, 255, 0.08) 10px,
+      rgba(255, 255, 255, 0.08) 20px
+    );
+}
+
+.star-burst {
+  display: inline-flex;
+  gap: 0.35rem;
+  animation: starBurst 0.9s ease-in-out both;
+}
+
+/* ─── Progress bar ─── */
+.progress-bar-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fb7185, #f59e0b, #34d399);
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+}
+
+.progress-bar-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: progressShimmer 2s ease-in-out infinite;
+}
+
+/* ─── Confetti celebration ─── */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -20px;
+  animation: confettiFall 3s ease-in forwards;
+}
+
+.confetti-piece:nth-child(odd) {
+  border-radius: 50%;
+}
+
+.confetti-piece:nth-child(even) {
+  border-radius: 2px;
+}
+
+/* ─── Slide transitions ─── */
+.slide-in-right {
+  animation: slideInRight 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+
+.fade-in-delayed {
+  animation: fadeIn 0.5s ease 0.15s both;
+}
+
+/* ─── Bounce effect for correct answers ─── */
+.bounce-in {
+  animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ─── Shake effect for wrong answers ─── */
+.shake {
+  animation: shake 0.5s ease both;
+}
+
+/* ─── Pulse effect for interactive elements ─── */
+.pulse-hint {
+  animation: pulseHint 2s ease-in-out infinite;
+}
+
+/* ─── Score counter animation ─── */
+.score-pop {
+  animation: scorePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ─── Hover glow effect ─── */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow:
+    0 0 20px rgba(251, 113, 133, 0.2),
+    0 14px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ─── Streak flame ─── */
+.streak-flame {
+  display: inline-block;
+  animation: flameFlicker 0.6s ease-in-out infinite alternate;
+}
+
+/* ─── How-to-play modal ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.25s ease both;
+}
+
+.modal-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 250, 240, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 2.2rem;
+  box-shadow:
+    0 32px 80px rgba(117, 74, 32, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  max-width: 36rem;
+  width: 100%;
+  padding: 2rem;
+  animation: slideInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Results: star rating ─── */
+.star-rating {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.star-rating .star {
+  font-size: 2.5rem;
+  opacity: 0;
+  transform: scale(0) rotate(-45deg);
+  animation: starReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.star-rating .star:nth-child(2) { animation-delay: 0.15s; }
+.star-rating .star:nth-child(3) { animation-delay: 0.3s; }
+.star-rating .star:nth-child(4) { animation-delay: 0.45s; }
+.star-rating .star:nth-child(5) { animation-delay: 0.6s; }
+
+.star-rating .star.earned {
+  filter: drop-shadow(0 4px 12px rgba(250, 204, 21, 0.5));
+}
+
+.star-rating .star.empty {
+  filter: grayscale(1) opacity(0.3);
+}
+
+/* ─── Animated score on results ─── */
+.score-reveal {
+  animation: scoreReveal 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.lesson-stage {
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at top left, rgba(255, 225, 176, 0.35), transparent 30%),
+    linear-gradient(180deg, #fffaf2 0%, #fff4e3 100%);
+}
+
+.lesson-icon-button {
+  display: inline-flex;
+  height: 4.25rem;
+  width: 4.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 2px solid rgba(219, 211, 201, 0.95);
+  background: rgba(255, 255, 255, 0.96);
+  color: #5d4541;
+  box-shadow:
+    0 8px 0 rgba(224, 216, 208, 0.9),
+    0 18px 30px rgba(97, 77, 63, 0.08);
+}
+
+.lesson-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  border: 2px solid rgba(219, 211, 201, 0.95);
+  background: rgba(245, 238, 229, 0.92);
+  padding: 0.95rem 1.35rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #5d4541;
+  box-shadow: 0 8px 20px rgba(97, 77, 63, 0.08);
+}
+
+.lesson-pill-primary {
+  border-color: rgba(255, 255, 255, 0.92);
+  background: linear-gradient(180deg, #b64666 0%, #a03b56 100%);
+  color: #fffaf5;
+  box-shadow:
+    0 6px 0 #86223d,
+    0 16px 24px rgba(160, 59, 86, 0.22);
+}
+
+.lesson-progress-wrap {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.lesson-progress-track {
+  height: 2.5rem;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 2px solid rgba(232, 224, 213, 0.9);
+  background: linear-gradient(180deg, #efe8de 0%, #e6ddd2 100%);
+  box-shadow: inset 0 2px 6px rgba(160, 132, 101, 0.12);
+}
+
+.lesson-progress-fill {
+  position: relative;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #d97291 0%, #a03b56 100%);
+  color: white;
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.55),
+    0 8px 16px rgba(160, 59, 86, 0.25);
+}
+
+.lesson-progress-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.35) 55%, rgba(255, 255, 255, 0) 100%);
+}
+
+.lesson-progress-star {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lesson-progress-cap {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-12%, -50%);
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.96);
+  background: linear-gradient(180deg, #f0b548 0%, #e59d28 100%);
+  color: white;
+  box-shadow: 0 10px 18px rgba(229, 157, 40, 0.25);
+}
+
+.lesson-title {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #16120d;
+}
+
+.lesson-subtitle {
+  margin: 0.75rem auto 0;
+  max-width: 42rem;
+  font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+  line-height: 1.6;
+  color: #5d4541;
+}
+
+.lesson-fraction-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.35rem;
+  padding: 0.15em 0.45em;
+  border-radius: 1rem;
+  background: #ffd9df;
+  color: #a03b56;
+  box-shadow: inset 0 -4px 0 rgba(160, 59, 86, 0.12);
+}
+
+.lesson-audio-button {
+  display: inline-flex;
+  height: 3.25rem;
+  width: 3.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  background: #ffd9df;
+  color: #a03b56;
+  box-shadow:
+    0 6px 0 rgba(219, 192, 196, 0.9),
+    0 14px 24px rgba(160, 59, 86, 0.12);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-audio-button.speaking {
+  background: #fb7185;
+  color: white;
+  box-shadow:
+    0 6px 0 rgba(200, 80, 100, 0.6),
+    0 0 0 0 rgba(251, 113, 133, 0.4);
+  animation: speakerPulse 1.2s ease-in-out infinite;
+}
+
+.lesson-choice-card {
+  border: 4px solid rgba(230, 221, 210, 0.95);
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 243, 234, 0.92));
+  padding: 1.5rem;
+  box-shadow:
+    0 8px 0 rgba(223, 217, 209, 0.9),
+    0 18px 36px rgba(97, 77, 63, 0.08);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-choice-card:disabled {
+  cursor: default;
+}
+
+.lesson-choice-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(228, 156, 49, 0.75);
+  box-shadow:
+    0 10px 0 rgba(223, 217, 209, 0.9),
+    0 22px 40px rgba(97, 77, 63, 0.1);
+}
+
+.lesson-choice-selected {
+  border-color: #e49c31;
+}
+
+.lesson-choice-correct {
+  border-color: #34d399;
+  background: linear-gradient(180deg, #ffffff 0%, #edfdf5 100%);
+}
+
+.lesson-choice-wrong {
+  border-color: #fb7185;
+  background: linear-gradient(180deg, #ffffff 0%, #fff1f2 100%);
+}
+
+.lesson-choice-figure {
+  border-radius: 1.65rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(243, 237, 228, 0.7));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.lesson-pizza-card {
+  padding: 0.65rem;
+}
+
+.lesson-pizza-card .lesson-choice-figure {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.96), rgba(248, 244, 238, 0.96) 72%);
+}
+
+.lesson-dropzone {
+  border: 4px dashed rgba(228, 156, 49, 0.8);
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(255, 245, 226, 0.95), rgba(255, 250, 240, 0.92));
+  padding: 1.25rem;
+}
+
+.lesson-sort-card {
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  border-radius: 1.8rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.9rem;
+  text-align: left;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-sort-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 34px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-coach-panel,
+.lesson-feedback-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 16px 34px rgba(97, 77, 63, 0.08);
+}
+
+.lesson-feedback-panel {
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 44rem;
+  align-self: center;
+}
+
+.lesson-primary-action,
+.lesson-secondary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.65rem;
+  padding: 0.85rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.2s ease;
+}
+
+.lesson-primary-action {
+  border: none;
+  background: #2d7d6c;
+  color: #ffffff;
+  box-shadow:
+    0 5px 0 #1a5247,
+    0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.lesson-secondary-action {
+  border: 2px solid rgba(219, 211, 201, 0.95);
+  background: rgba(255, 255, 255, 0.96);
+  color: #5d4541;
+  box-shadow:
+    0 4px 0 rgba(200, 190, 178, 0.9),
+    0 8px 16px rgba(97, 77, 63, 0.08);
+}
+
+.lesson-primary-action:hover {
+  background: #357f6e;
+  transform: translateY(-2px);
+  box-shadow:
+    0 7px 0 #1a5247,
+    0 12px 24px rgba(0, 0, 0, 0.22);
+}
+
+.lesson-secondary-action:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 0 rgba(200, 190, 178, 0.9),
+    0 12px 20px rgba(97, 77, 63, 0.1);
+}
+
+.lesson-primary-action:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #1a5247;
+}
+
+.lesson-secondary-action:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(200, 190, 178, 0.9);
+}
+
+.lesson-primary-action:disabled,
+.lesson-secondary-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+.lesson-footer {
+  border-top: 1px solid rgba(228, 156, 49, 0.25);
+  background: #fdf0bd;
+  padding: 2rem 1rem 2.4rem;
+}
+
+@media (max-width: 640px) {
+  .lesson-icon-button {
+    height: 3.6rem;
+    width: 3.6rem;
+  }
+
+  .lesson-progress-track {
+    height: 2.15rem;
+  }
+
+  .lesson-progress-cap {
+    height: 2.6rem;
+    width: 2.6rem;
+  }
+
+  .lesson-pill {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ─── Keyframes ─── */
+@keyframes floatOrb {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-14px) scale(1.05);
+  }
+}
+
+@keyframes starBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotate(-8deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-8px); }
+  30% { transform: translateX(7px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(2px); }
+}
+
+@keyframes pulseHint {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(251, 113, 133, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(251, 113, 133, 0);
+  }
+}
+
+@keyframes scorePop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes progressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes flameFlicker {
+  0% { transform: scale(1) rotate(-3deg); }
+  100% { transform: scale(1.15) rotate(3deg); }
+}
+
+@keyframes starReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes speakerPulse {
+  0% {
+    box-shadow:
+      0 6px 0 rgba(200, 80, 100, 0.6),
+      0 0 0 0 rgba(251, 113, 133, 0.5);
+  }
+  60% {
+    box-shadow:
+      0 6px 0 rgba(200, 80, 100, 0.6),
+      0 0 0 12px rgba(251, 113, 133, 0);
+  }
+  100% {
+    box-shadow:
+      0 6px 0 rgba(200, 80, 100, 0.6),
+      0 0 0 0 rgba(251, 113, 133, 0);
+  }
+}
+
+@keyframes scoreReveal {
+
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  60% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ─── Focus visible for keyboard nav ─── */
+*:focus-visible {
+  outline: 3px solid rgba(251, 113, 133, 0.6);
+  outline-offset: 3px;
+  border-radius: 1rem;
+}
+
+/* ─── How-to-play step indicators ─── */
+.step-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fb7185, #f59e0b);
+  color: white;
+  font-weight: 900;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(251, 113, 133, 0.25);
+}
+
+/* ─── Post-answer feedback panel ─── */
+.feedback-slide-in {
+  animation: feedbackSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.feedback-card {
+  border-radius: 1.8rem;
+  padding: 1.5rem;
+  border: 2px solid;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.feedback-correct .feedback-card {
+  border-color: rgba(52, 211, 153, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(236, 253, 245, 0.95));
+}
+
+.feedback-wrong .feedback-card {
+  border-color: rgba(251, 113, 133, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 241, 242, 0.95));
+}
+
+.points-pop {
+  animation: pointsPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+/* ─── Feature highlight cards ─── */
+.feature-card-entrance {
+  animation: featureCardEntrance 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Score pill glow ─── */
+.score-glow {
+  position: relative;
+}
+
+.score-glow::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fb7185, #f59e0b);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.score-glow.active::after {
+  animation: scoreGlowPulse 0.8s ease both;
+}
+
+@keyframes feedbackSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pointsPop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes featureCardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes scoreGlowPulse {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
