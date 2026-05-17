@@ -3153,18 +3153,7 @@ export default function Home() {
               )}
 
               <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-                {currentQuestionId === "sorting" && !currentResult ? (
-                  <button
-                    type="button"
-                    onClick={() => setAnswers((previous) => ({ ...previous, sorting: {} }))}
-                    disabled={Boolean(currentResult)}
-                    className="lesson-secondary-action"
-                  >
-                    {t.resetTray}
-                  </button>
-                ) : (
-                  <div />
-                )}
+                <div />
                 <button
                   type="button"
                   onClick={goToNextQuestion}
